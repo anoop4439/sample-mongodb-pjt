@@ -23,7 +23,20 @@ const createProducts = async (req, res, next) => {
 };
 
 const getProducts = async (req, res, next) => {
+    const client = new MongoClient(url);
 
+    let products;
+
+    try {
+        await client.connect();
+        const db = client.db();
+        products = await db.collection('products').find().toArray();
+    } catch (error) {
+        return res.json({message: 'Could not fetch data'});
+    }
+    client.close();
+
+    res.json(products);
 };
 
 exports.createProducts = createProducts;

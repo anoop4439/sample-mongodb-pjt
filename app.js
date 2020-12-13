@@ -8,6 +8,6 @@ app.use(bodyParser.json());
 
 app.post('/products', mongoPractice.createProducts);
 
-app.get('/products');
+app.get('/products', mongoPractice.getProducts);
 
 app.listen(3000);
